@@ -11,9 +11,8 @@
             <el-input v-model="forminfo.username" placeholder="请输入管理员名称"></el-input>
         </el-form-item>
         <el-form-item label="管理员密码" prop="password">
-            <el-input v-model="forminfo.password" placeholder="请输入管理员密码"></el-input>
+            <el-input v-model="forminfo.password" :placeholder="info.isAdd?'请输入管理员密码':'密码留空表示不修改'"></el-input>
         </el-form-item>
-
         <el-form-item label="管理员状态">
             <el-switch v-model="forminfo.status" :active-value="1" :inactive-value="2"></el-switch>
         </el-form-item>
@@ -68,7 +67,7 @@ export default {
                     message: "必填！",
                     trigger: "blur",
                 }, ],
-                uesrname: [{
+                username: [{
                     required: true,
                     message: "必填！",
                     trigger: "blur",
@@ -92,16 +91,7 @@ export default {
             get_user_list: "user/get_user_list",
         }),
         setinfo(val) {
-            console.log(val);
-            // 将数据赋给默认defaultItem; 赋给表单
-            let idarr = val.menus.split(",");
-            if (idarr[0]) {
-                this.checkStrictly = true;
-                this.$nextTick(() => {
-                    this.$refs.tree.setCheckedKeys(idarr);
-                    this.checkStrictly = false;
-                });
-            }
+            val.password = "";
             defaultItem = {
                 ...val,
             };

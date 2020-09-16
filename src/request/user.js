@@ -3,7 +3,7 @@ import $axios from "@/common/http"  // 导入封装好的axios!
 /**
  * 获取管理员列表
  */
-export async function getUser(size = 10, page = 1) {
+export async function getUser(page = 1, size = 10) {
   let res = await $axios.get("/userlist", {
     params: {
       size, page
@@ -35,4 +35,8 @@ export function editUser(data) {
  */
 export function delUser(uid) {
   return $axios.post("/userdelete", { uid })
+}
+export async function getTotal() {
+  let res = await $axios.get("/usercount")
+  return res.list[0].total
 }
