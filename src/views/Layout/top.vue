@@ -12,14 +12,14 @@
     <div>
         <el-dropdown>
             <span class="el-dropdown-link">
-                飞哥你好！
+                {{username}}你好！
                 <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>
                     <i class="el-icon-full-screen"></i> 全屏操作
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <el-dropdown-item @click.native="QUIT">
                     <i class="el-icon-switch-button"></i> 退出登录
                 </el-dropdown-item>
             </el-dropdown-menu>
@@ -31,7 +31,8 @@
 <script>
 import {
     mapState,
-    mapMutations
+    mapMutations,
+    mapGetters
 } from "vuex";
 export default {
     data() {
@@ -39,9 +40,15 @@ export default {
     },
     computed: {
         ...mapState(["iscollapse"]),
+        ...mapGetters({
+            username: "user/username",
+        }),
     },
     methods: {
-        ...mapMutations(["TOGGLE"]),
+        ...mapMutations({
+            TOGGLE: "TOGGLE",
+            QUIT: "user/QUIT",
+        }),
     },
     components: {},
 };
